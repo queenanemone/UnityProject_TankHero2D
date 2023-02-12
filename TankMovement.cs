@@ -38,4 +38,9 @@ public class TankMovement : MonoBehaviour
             bullet.gameObject.GetComponent<Rigidbody2D>().AddForce(dir * bulletSpeed, ForceMode2D.Impulse);
         }
     }
+    void OnTriggerEnter2D(Collider2D other) {
+        if (other.tag == "Enemy_Bullet"){
+            Debug.Log("Explode!!");
+        }
+    }
 }
