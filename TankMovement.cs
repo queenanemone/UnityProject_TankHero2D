@@ -8,7 +8,7 @@ public class TankMovement : MonoBehaviour
     [SerializeField] float steerSpeed = 1f;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] GameObject shotPos;
-    [SerializeField] float bulletSpeed = 1f;
+    [SerializeField] float bulletSpeed = 5f;
     Vector3 dir;
     Camera cam;
     // Start is called before the first frame update
@@ -27,11 +27,11 @@ public class TankMovement : MonoBehaviour
         transform.Translate(0, moveAmount, 0);
         
         Shoot();
-        dir = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -cam.transform.position.z));
+        dir = (cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -cam.transform.position.z)) - shotPos.transform.position).normalized;
     }
 
     void Shoot(){
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonUp(0))
         {
             GameObject bullet = Instantiate(bulletPrefab);
             bullet.transform.position = shotPos.transform.position;
